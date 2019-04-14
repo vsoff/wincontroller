@@ -26,10 +26,10 @@ namespace Vsoff.WC.Common.Notifiers
 
         public void Notify(NotifyMessage msg)
         {
-            if (msg.Photo.Length > 0)
+            if (msg.Photo != null && msg.Photo.Length > 0)
                 _client.SendDocumentAsync(TempConfig.AdminId, new InputOnlineFile(new MemoryStream(msg.Photo), "screenshot.jpeg"));
             else
-                _client.SendTextMessageAsync(TempConfig.AdminId, msg.Text);
+                _client.SendTextMessageAsync(TempConfig.AdminId, msg.Text).Wait();
         }
     }
 }

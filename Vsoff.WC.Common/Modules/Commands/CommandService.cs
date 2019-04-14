@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Screenshots;
-using Vsoff.WC.Common.Modules.SystemMonitors;
+using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Core.Common;
 
 namespace Vsoff.WC.Common.Modules.Commands
@@ -18,12 +18,12 @@ namespace Vsoff.WC.Common.Modules.Commands
     public class CommandService : ICommandService
     {
         private readonly IScreenshotService _screenshotService;
-        private readonly ISystemMonitor _systemController;
+        private readonly ISystemController _systemController;
         private readonly IMessenger _messenger;
 
         public CommandService(
             IScreenshotService screenshotService,
-            ISystemMonitor systemController,
+            ISystemController systemController,
             IMessenger messenger)
         {
             _screenshotService = screenshotService ?? throw new ArgumentNullException(nameof(screenshotService));
@@ -36,10 +36,31 @@ namespace Vsoff.WC.Common.Modules.Commands
             switch (commandType)
             {
                 case CommandType.Screenshot:
-                    _messenger.Send(new NotifyMessage { Photo = _screenshotService.GetScreenshot() });
+                    try
+                    {
+                        var photo = _screenshotService.GetScreenshot();
+                        _messenger.Send(new NotifyMessage { Photo = _screenshotService.GetScreenshot() });
+                    }
+                    catch (Exception ex)
+                    {
+                        _messenger.Send($"Не удалось сделать скриншот.\n\nПричина: {ex}");
+                    }
                     break;
                 case CommandType.Status:
                     _messenger.Send(_systemController.GetSystemInfo().ToString());
+                    break;
+                case CommandType.Shutdown:
+                    int seconds;
+                    bool isSuccess = int.TryParse(argument, out seconds);
+                    if (!isSuccess || string.IsNullOrWhiteSpace(argument))
+                    {
+                        _messenger.Send("Аргумент должен быть целым числом и обозначать кол-во секунд до выключения");
+                        return;
+                    }
+                    _systemController.Shutdown(TimeSpan.FromSeconds(seconds));
+                    break;
+                case CommandType.ShutdownAbort:
+                    _systemController.ShutdownAbort();
                     break;
 
                 case CommandType.Unknown:

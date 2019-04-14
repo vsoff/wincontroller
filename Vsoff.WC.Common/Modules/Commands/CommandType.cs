@@ -10,6 +10,8 @@ namespace Vsoff.WC.Common.Modules.Commands
     {
         Unknown,
         Screenshot,
-        Status
+        Status,
+        Shutdown,
+        ShutdownAbort
     }
 }

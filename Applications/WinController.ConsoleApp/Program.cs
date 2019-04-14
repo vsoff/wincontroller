@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Unity;
 using Vsoff.WC.Common;
+using Vsoff.WC.Common.Modules.System;
 
 namespace WinController.ConsoleApp
 {
@@ -19,7 +22,7 @@ namespace WinController.ConsoleApp
             var winController = container.Resolve<IWinController>();
             winController.Start();
 
-            Console.ReadLine();
+            new ManualResetEvent(false).WaitOne();
 
             winController.Stop();
         }

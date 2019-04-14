@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
@@ -10,14 +11,17 @@ using System.Threading.Tasks;
 using Unity;
 using Vsoff.WC.Common;
 using Vsoff.WC.Common.Messengers;
+using Vsoff.WC.Common.Modules.System;
+using Vsoff.WC.Core.Common;
+using Vsoff.WC.Core.Notifiers;
 
 namespace WinController.ServiceApp
 {
     partial class WinControllerService : ServiceBase
     {
-        private readonly IMessenger _messenger;
-        private readonly IWinController _controller;
-        private readonly IUnityContainer _container;
+        private INotifier _notifier;
+        private IWinController _controller;
+        private IUnityContainer _container;
 
         public WinControllerService()
         {
@@ -28,18 +32,26 @@ namespace WinController.ServiceApp
 
             _container = container;
             _controller = _container.Resolve<IWinController>();
-            _messenger = _container.Resolve<IMessenger>();
+            _notifier = _container.Resolve<INotifier>();
         }
 
         protected override void OnShutdown()
         {
-            _messenger.Send($"[OnShutdown]: {DateTime.Now}");
+            _notifier?.Notify(new NotifyMessage
+            {
+                Text = $"[OnShutdown]: {DateTime.Now}"
+            });
+
             base.OnShutdown();
         }
 
         protected override bool OnPowerEvent(PowerBroadcastStatus powerStatus)
         {
-            _messenger.Send($"[OnPowerEvent]: PowerStatus: {powerStatus} at {DateTime.Now}");
+            _notifier?.Notify(new NotifyMessage
+            {
+                Text = $"[OnPowerEvent]: PowerStatus: {powerStatus} at {DateTime.Now}"
+            });
+
             return base.OnPowerEvent(powerStatus);
         }
 
@@ -50,7 +62,7 @@ namespace WinController.ServiceApp
 
         protected override void OnStop()
         {
-            _controller.Stop();
+            _controller?.Stop();
         }
     }
 }

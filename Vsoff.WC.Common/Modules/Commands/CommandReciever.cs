@@ -17,6 +17,8 @@ namespace Vsoff.WC.Common.Modules.Commands
 
     public class CommandReceiver : IReceiver
     {
+        private readonly TimeSpan _oldMessagesDelay = TimeSpan.FromSeconds(40);
+
         private readonly ICommandService _commandService;
         private readonly IMessenger _messenger;
 
@@ -41,6 +43,9 @@ namespace Vsoff.WC.Common.Modules.Commands
         private void OnMessageReceived(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
             if (e.Message.Chat.Id != TempConfig.AdminId)
+                return;
+
+            if (DateTime.UtcNow - e.Message.Date > TimeSpan.FromSeconds(60))
                 return;
 
             string text = e.Message.Text;
@@ -71,6 +76,10 @@ namespace Vsoff.WC.Common.Modules.Commands
                 cmdType = CommandType.Screenshot;
             else if (cmd.StartsWith("/status"))
                 cmdType = CommandType.Status;
+            else if (cmd.StartsWith("/shutdownabort"))
+                cmdType = CommandType.ShutdownAbort;
+            else if (cmd.StartsWith("/shutdown"))
+                cmdType = CommandType.Shutdown;
 
             _commandService.InvokeCommand(cmdType, argument);
         }

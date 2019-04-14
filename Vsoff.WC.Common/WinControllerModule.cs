@@ -6,7 +6,7 @@ using Unity.Lifetime;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
 using Vsoff.WC.Common.Modules.Screenshots;
-using Vsoff.WC.Common.Modules.SystemMonitors;
+using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Common.Notifiers;
 using Vsoff.WC.Core.Common.Workers;
 using Vsoff.WC.Core.Notifiers;
@@ -27,7 +27,7 @@ namespace Vsoff.WC.Common
             container.RegisterType<IScreenshotService, ScreenshotService>(new SingletonLifetimeManager());
             container.RegisterType<ICommandService, CommandService>(new SingletonLifetimeManager());
 
-            container.RegisterType<ISystemMonitor, SystemController>(new SingletonLifetimeManager());
+            container.RegisterType<ISystemController, SystemController>(new SingletonLifetimeManager());
         }
     }
 }

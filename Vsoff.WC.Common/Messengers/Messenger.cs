@@ -59,8 +59,7 @@ namespace Vsoff.WC.Common.Messengers
         {
             _messagesQueue.Enqueue(new NotifyMessage
             {
-                Text = text,
-                Photo = new byte[0]
+                Text = text
             });
         }
     }
