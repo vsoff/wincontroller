@@ -7,6 +7,7 @@ using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
 using Vsoff.WC.Common.Modules.Commands.Converters;
 using Vsoff.WC.Common.Modules.Commands.Handlers;
+using Vsoff.WC.Common.Modules.Config;
 using Vsoff.WC.Common.Modules.Screenshots;
 using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Common.Notifiers;
@@ -45,6 +46,8 @@ namespace Vsoff.WC.Common
             container.RegisterType<ICommandService, CommandService>(new SingletonLifetimeManager());
 
             container.RegisterType<ISystemService, SystemService>(new SingletonLifetimeManager());
+
+            container.RegisterType<IAppConfigService, AppConfigService>(new SingletonLifetimeManager());
 
             RegisterCommandHandlers(container);
         }

@@ -21,10 +21,7 @@ namespace WinController.ConsoleApp
 
             var winController = container.Resolve<IWinController>();
             winController.Start();
-
-            new ManualResetEvent(false).WaitOne();
-
-            winController.Stop();
+            winController.WaitExit();
         }
     }
 }

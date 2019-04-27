@@ -8,6 +8,7 @@ using Telegram.Bot;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands.Converters;
 using Vsoff.WC.Common.Modules.Commands.Types;
+using Vsoff.WC.Common.Modules.Config;
 
 namespace Vsoff.WC.Common.Modules.Commands
 {
@@ -24,6 +25,7 @@ namespace Vsoff.WC.Common.Modules.Commands
     {
         private readonly TimeSpan _oldMessagesDelay = TimeSpan.FromSeconds(60);
 
+        private readonly IAppConfigService _appConfigService;
         private readonly ICommandConverter _commandConverter;
         private readonly ICommandService _commandService;
         private readonly IMessenger _messenger;
@@ -31,16 +33,19 @@ namespace Vsoff.WC.Common.Modules.Commands
         private readonly TelegramBotClient _client;
 
         public CommandReceiver(
+            IAppConfigService appConfigService,
             ICommandConverter commandConverter,
             ICommandService commandService,
             IMessenger messenger)
         {
+            _appConfigService = appConfigService ?? throw new ArgumentNullException(nameof(appConfigService));
             _commandConverter = commandConverter ?? throw new ArgumentNullException(nameof(commandConverter));
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
-            IWebProxy proxy = new WebProxy(TempConfig.ProxyIp);
-            _client = new TelegramBotClient(TempConfig.TelegramToken, proxy);
+            var config = _appConfigService.GetConfig();
+            IWebProxy proxy = new WebProxy(config.ProxyIp);
+            _client = new TelegramBotClient(config.TelegramToken, proxy);
             _client.OnMessage += OnMessageReceived;
         }
 
@@ -50,7 +55,7 @@ namespace Vsoff.WC.Common.Modules.Commands
 
         private void OnMessageReceived(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
-            if (e.Message.Chat.Id != TempConfig.AdminId)
+            if (e.Message.Chat.Id != _appConfigService.GetConfig().AdminId)
                 return;
 
             if (DateTime.UtcNow - e.Message.Date > _oldMessagesDelay)

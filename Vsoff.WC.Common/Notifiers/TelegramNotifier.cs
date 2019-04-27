@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telegram.Bot;
 using Telegram.Bot.Types.InputFiles;
+using Vsoff.WC.Common.Modules.Config;
 using Vsoff.WC.Core.Common;
 using Vsoff.WC.Core.Notifiers;
 
@@ -16,20 +17,25 @@ namespace Vsoff.WC.Common.Notifiers
 {
     public class TelegramNotifier : INotifier
     {
+        private readonly IAppConfigService _appConfigService;
         private readonly TelegramBotClient _client;
 
-        public TelegramNotifier()
+        public TelegramNotifier(IAppConfigService appConfigService)
         {
-            IWebProxy proxy = new WebProxy(TempConfig.ProxyIp);
-            _client = new TelegramBotClient(TempConfig.TelegramToken, proxy);
+            _appConfigService = appConfigService ?? throw new ArgumentNullException(nameof(appConfigService));
+
+            var config = _appConfigService.GetConfig();
+            IWebProxy proxy = new WebProxy(config.ProxyIp);
+            _client = new TelegramBotClient(config.TelegramToken, proxy);
         }
 
         public void Notify(NotifyMessage msg)
         {
+            var adminId = _appConfigService.GetConfig().AdminId;
             if (msg.Photo != null && msg.Photo.Length > 0)
-                _client.SendDocumentAsync(TempConfig.AdminId, new InputOnlineFile(new MemoryStream(msg.Photo), "screenshot.jpeg"));
+                _client.SendDocumentAsync(adminId, new InputOnlineFile(new MemoryStream(msg.Photo), "screenshot.jpeg"));
             else
-                _client.SendTextMessageAsync(TempConfig.AdminId, msg.Text).Wait();
+                _client.SendTextMessageAsync(adminId, msg.Text).Wait();
         }
     }
 }
