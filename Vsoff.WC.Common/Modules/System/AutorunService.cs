@@ -29,8 +29,7 @@ namespace Vsoff.WC.Common.Modules.System
 
         public void Register()
         {
-            const string path = @"C:\Services\WinController\WinController.Process.exe";
-            _registryKey.SetValue(_registryKeyName, path /*Application.ExecutablePath*/);
+            _registryKey.SetValue(_registryKeyName, Application.ExecutablePath);
         }
 
         public void Unregister()
@@ -45,7 +44,6 @@ namespace Vsoff.WC.Common.Modules.System
     public class AutorunScheduleService : IAutorunService
     {
         private const string _appName = @"WinController";
-        private const string _path = @"C:\Services\WinController\WinController.Process.exe";
 
         private readonly ISystemService _systemService;
 
@@ -54,7 +52,7 @@ namespace Vsoff.WC.Common.Modules.System
             _systemService = systemService;
         }
 
-        public void Register() => Invoke("schtasks", $"/create /sc onlogon /tn {_appName} /rl highest /tr \"{_path}\"");
+        public void Register() => Invoke("schtasks", $"/create /sc onlogon /tn {_appName} /rl highest /tr \"{Application.ExecutablePath}\"");
 
         public void Unregister() => Invoke("schtasks", $"/delete /tn {_appName}");
 

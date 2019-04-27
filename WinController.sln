@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vsoff.WC.Core", "Vsoff.WC.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vsoff.WC.Common", "Vsoff.WC.Common\Vsoff.WC.Common.csproj", "{3FDEFAA6-8E0A-44CB-8142-34D1AB0EDBC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinController.Process", "WinController.Process\WinController.Process.csproj", "{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinController.Process", "Applications\WinController.Process\WinController.Process.csproj", "{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
