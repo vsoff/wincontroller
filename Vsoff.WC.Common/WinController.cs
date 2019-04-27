@@ -20,31 +20,31 @@ namespace Vsoff.WC.Common
     {
         private readonly TimeSpan _statusReportInterval = TimeSpan.FromSeconds(30);
 
-        private readonly ISystemController _systemController;
+        private readonly ISystemService _systemService;
         private readonly IMessenger _messenger;
-        private readonly IReceiver _reciever;
+        private readonly ICommandReceiver _reciever;
 
         public WinController(
             IWorkerController workerController,
-            ISystemController systemController,
+            ISystemService systemService,
             IMessenger messenger,
-            IReceiver reciever)
+            ICommandReceiver reciever)
         {
-            _systemController = systemController ?? throw new ArgumentNullException(nameof(systemController));
+            _systemService = systemService ?? throw new ArgumentNullException(nameof(systemService));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             _reciever = reciever ?? throw new ArgumentNullException(nameof(reciever));
         }
 
         public void Start()
         {
-            _messenger.Send($"Машина `{_systemController.MachineName}` запущена\n{DateTime.Now}");
+            _messenger.Send($"Машина `{_systemService.MachineName}` запущена\n{DateTime.Now}");
             _reciever.Start();
         }
 
         public void Stop()
         {
             _reciever.Stop();
-            _messenger.Send($"Машина `{_systemController.MachineName}` выключена\n{DateTime.Now}");
+            _messenger.Send($"Машина `{_systemService.MachineName}` выключена\n{DateTime.Now}");
         }
     }
 }

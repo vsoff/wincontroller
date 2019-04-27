@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vsoff.WC.Core", "Vsoff.WC.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vsoff.WC.Common", "Vsoff.WC.Common\Vsoff.WC.Common.csproj", "{3FDEFAA6-8E0A-44CB-8142-34D1AB0EDBC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinController.Process", "WinController.Process\WinController.Process.csproj", "{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{3FDEFAA6-8E0A-44CB-8142-34D1AB0EDBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FDEFAA6-8E0A-44CB-8142-34D1AB0EDBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FDEFAA6-8E0A-44CB-8142-34D1AB0EDBC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167D17A1-8C56-4F77-B0CC-E98F45CDEC00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E3856D37-275E-42CC-AAE8-54885606E06B} = {D121C677-B1EA-43F4-BDB4-DCF8D81CA808}
 		{5E540FEE-CBF7-442A-94A0-9D7E45010E19} = {D121C677-B1EA-43F4-BDB4-DCF8D81CA808}
+		{167D17A1-8C56-4F77-B0CC-E98F45CDEC00} = {D121C677-B1EA-43F4-BDB4-DCF8D81CA808}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F88BA3B-E896-4E13-B5E6-427E2A1A6C22}

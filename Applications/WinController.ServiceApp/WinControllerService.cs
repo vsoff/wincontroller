@@ -57,7 +57,7 @@ namespace WinController.ServiceApp
 
         protected override void OnStart(string[] args)
         {
-            _controller.Start();
+            _controller?.Start();
         }
 
         protected override void OnStop()

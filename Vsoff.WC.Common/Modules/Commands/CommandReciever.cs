@@ -6,28 +6,36 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Vsoff.WC.Common.Messengers;
+using Vsoff.WC.Common.Modules.Commands.Converters;
+using Vsoff.WC.Common.Modules.Commands.Types;
 
 namespace Vsoff.WC.Common.Modules.Commands
 {
-    public interface IReceiver
+    /// <summary>
+    /// Ретранслирует новые команды в приложение.
+    /// </summary>
+    public interface ICommandReceiver
     {
         void Start();
         void Stop();
     }
 
-    public class CommandReceiver : IReceiver
+    public class CommandReceiver : ICommandReceiver
     {
-        private readonly TimeSpan _oldMessagesDelay = TimeSpan.FromSeconds(40);
+        private readonly TimeSpan _oldMessagesDelay = TimeSpan.FromSeconds(60);
 
+        private readonly ICommandConverter _commandConverter;
         private readonly ICommandService _commandService;
         private readonly IMessenger _messenger;
 
         private readonly TelegramBotClient _client;
 
         public CommandReceiver(
+            ICommandConverter commandConverter,
             ICommandService commandService,
             IMessenger messenger)
         {
+            _commandConverter = commandConverter ?? throw new ArgumentNullException(nameof(commandConverter));
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
@@ -45,43 +53,11 @@ namespace Vsoff.WC.Common.Modules.Commands
             if (e.Message.Chat.Id != TempConfig.AdminId)
                 return;
 
-            if (DateTime.UtcNow - e.Message.Date > TimeSpan.FromSeconds(60))
+            if (DateTime.UtcNow - e.Message.Date > _oldMessagesDelay)
                 return;
 
-            string text = e.Message.Text;
-            int spaceIndex = text.IndexOf(" ");
-
-            string cmd, argument;
-            if (spaceIndex != -1)
-            {
-                cmd = text.Substring(0, spaceIndex);
-                argument = text.Length >= spaceIndex + 1
-                    ? text.Substring(spaceIndex + 1)
-                    : string.Empty;
-            }
-            else
-            {
-                cmd = text;
-                argument = string.Empty;
-            }
-
-            InvokeCommand(cmd, argument);
-        }
-
-        private void InvokeCommand(string cmd, string argument)
-        {
-            CommandType cmdType = CommandType.Unknown;
-
-            if (cmd.StartsWith("/screen"))
-                cmdType = CommandType.Screenshot;
-            else if (cmd.StartsWith("/status"))
-                cmdType = CommandType.Status;
-            else if (cmd.StartsWith("/shutdownabort"))
-                cmdType = CommandType.ShutdownAbort;
-            else if (cmd.StartsWith("/shutdown"))
-                cmdType = CommandType.Shutdown;
-
-            _commandService.InvokeCommand(cmdType, argument);
+            ICommand command = _commandConverter.Convert(e.Message.Text);
+            _commandService.InvokeCommand(command);
         }
     }
 }

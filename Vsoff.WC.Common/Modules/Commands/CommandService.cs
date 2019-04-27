@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vsoff.WC.Common.Messengers;
+using Vsoff.WC.Common.Modules.Commands.Handlers;
+using Vsoff.WC.Common.Modules.Commands.Types;
 using Vsoff.WC.Common.Modules.Screenshots;
 using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Core.Common;
@@ -12,64 +14,39 @@ namespace Vsoff.WC.Common.Modules.Commands
 {
     public interface ICommandService
     {
-        void InvokeCommand(CommandType commandType, string argument);
+        void InvokeCommand(ICommand command);
     }
 
     public class CommandService : ICommandService
     {
-        private readonly IScreenshotService _screenshotService;
-        private readonly ISystemController _systemController;
         private readonly IMessenger _messenger;
 
+        private readonly Dictionary<Type, ICommandHandler> _commandHandlersMap;
+
         public CommandService(
-            IScreenshotService screenshotService,
-            ISystemController systemController,
+            ICommandHandler[] commandHandlers,
             IMessenger messenger)
         {
-            _screenshotService = screenshotService ?? throw new ArgumentNullException(nameof(screenshotService));
-            _systemController = systemController ?? throw new ArgumentNullException(nameof(systemController));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+
+            _commandHandlersMap = commandHandlers.ToDictionary(key => key.CommandType, val => val);
         }
 
-        public void InvokeCommand(CommandType commandType, string argument)
+        public void InvokeCommand(ICommand command)
         {
-            switch (commandType)
-            {
-                case CommandType.Screenshot:
-                    try
-                    {
-                        var photo = _screenshotService.GetScreenshot();
-                        _messenger.Send(new NotifyMessage { Photo = _screenshotService.GetScreenshot() });
-                    }
-                    catch (Exception ex)
-                    {
-                        _messenger.Send($"Не удалось сделать скриншот.\n\nПричина: {ex}");
-                    }
-                    break;
-                case CommandType.Status:
-                    _messenger.Send(_systemController.GetSystemInfo().ToString());
-                    break;
-                case CommandType.Shutdown:
-                    int seconds;
-                    bool isSuccess = int.TryParse(argument, out seconds);
-                    if (!isSuccess || string.IsNullOrWhiteSpace(argument))
-                    {
-                        _messenger.Send("Аргумент должен быть целым числом и обозначать кол-во секунд до выключения");
-                        return;
-                    }
-                    _systemController.Shutdown(TimeSpan.FromSeconds(seconds));
-                    break;
-                case CommandType.ShutdownAbort:
-                    _systemController.ShutdownAbort();
-                    break;
+            Type t = command.GetType();
 
-                case CommandType.Unknown:
-                default:
-                    _messenger.Send("Неизвестная команда");
-                    break;
+            if (!_commandHandlersMap.ContainsKey(t))
+                throw new KeyNotFoundException($"Нет зарегистрированного обработчика команды с типом `{t}`");
+
+            try
+            {
+                _commandHandlersMap[t].Handle(command);
+            }
+            catch (Exception ex)
+            {
+                _messenger.Send($"Во время выполнения команды типа {t.Name} произошло исключение");
             }
         }
-
-        public void TakeScreenshot() => _messenger.Send(new NotifyMessage { Photo = _screenshotService.GetScreenshot() });
     }
 }

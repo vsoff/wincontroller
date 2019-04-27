@@ -5,6 +5,8 @@ using Unity;
 using Unity.Lifetime;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
+using Vsoff.WC.Common.Modules.Commands.Converters;
+using Vsoff.WC.Common.Modules.Commands.Handlers;
 using Vsoff.WC.Common.Modules.Screenshots;
 using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Common.Notifiers;
@@ -18,7 +20,22 @@ namespace Vsoff.WC.Common
         public static void Register(IUnityContainer container)
         {
             container.RegisterType<INotifier, TelegramNotifier>(new SingletonLifetimeManager());
-            container.RegisterType<IReceiver, CommandReceiver>(new SingletonLifetimeManager());
+            container.RegisterType<ICommandReceiver, CommandReceiver>(new SingletonLifetimeManager());
+
+            RegisterCommon(container);
+        }
+
+        public static void RegisterTesting(IUnityContainer container)
+        {
+            container.RegisterType<INotifier, ConsoleNotifier>(new SingletonLifetimeManager());
+            container.RegisterType<ICommandReceiver, ConsoleCommandReceiver>(new SingletonLifetimeManager());
+
+            RegisterCommon(container);
+        }
+
+        private static void RegisterCommon(IUnityContainer container)
+        {
+            container.RegisterType<ICommandConverter, CommandConverter>(new SingletonLifetimeManager());
             container.RegisterType<IMessenger, Messenger>(new SingletonLifetimeManager());
 
             container.RegisterType<IWorkerController, DefaultWorkerController>(new SingletonLifetimeManager());
@@ -27,7 +44,19 @@ namespace Vsoff.WC.Common
             container.RegisterType<IScreenshotService, ScreenshotService>(new SingletonLifetimeManager());
             container.RegisterType<ICommandService, CommandService>(new SingletonLifetimeManager());
 
-            container.RegisterType<ISystemController, SystemController>(new SingletonLifetimeManager());
+            container.RegisterType<ISystemService, SystemService>(new SingletonLifetimeManager());
+
+            RegisterCommandHandlers(container);
+        }
+
+        private static void RegisterCommandHandlers(IUnityContainer container)
+        {
+            container.RegisterType<ICommandHandler, TakeScreenshotCommandHandler>(nameof(TakeScreenshotCommandHandler), new SingletonLifetimeManager());
+            container.RegisterType<ICommandHandler, UndefinedCommandHandler>(nameof(UndefinedCommandHandler), new SingletonLifetimeManager());
+            container.RegisterType<ICommandHandler, ShutdownCommandHandler>(nameof(ShutdownCommandHandler), new SingletonLifetimeManager());
+            container.RegisterType<ICommandHandler, KeyboardCommandHandler>(nameof(KeyboardCommandHandler), new SingletonLifetimeManager());
+            container.RegisterType<ICommandHandler, StatusCommandHandler>(nameof(StatusCommandHandler), new SingletonLifetimeManager());
+            container.RegisterType<ICommandHandler, LockCommandHandler>(nameof(LockCommandHandler), new SingletonLifetimeManager());
         }
     }
 }
