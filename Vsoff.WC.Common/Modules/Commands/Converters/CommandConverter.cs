@@ -18,11 +18,14 @@ namespace Vsoff.WC.Common.Modules.Commands.Converters
 
             switch (cmd)
             {
-                case "/voldown": return new VolumeCommand(VolumeCommand.CommandType.VolumeDown);
-                case "/volup": return new VolumeCommand(VolumeCommand.CommandType.VolumeUp);
+                case "/au":
+                case "/autorun": return ConvertAutorunCommand(argument.ToLower());
+
+                case "/voldown": return new VolumeCommand(VolumeCommand.Command.VolumeDown);
+                case "/volup": return new VolumeCommand(VolumeCommand.Command.VolumeUp);
                 case "/vol":
                 case "/volume": return ConvertVolumeCommand(argument);
-                case "/mute": return new VolumeCommand(VolumeCommand.CommandType.Mute);
+                case "/mute": return new VolumeCommand(VolumeCommand.Command.Mute);
 
                 case "/enter": return new KeyboardCommand("\n");
                 case "/space": return new KeyboardCommand(" ");
@@ -37,13 +40,24 @@ namespace Vsoff.WC.Common.Modules.Commands.Converters
             return new UndefinedCommand("Неизвестная команда");
         }
 
+        private ICommand ConvertAutorunCommand(string argument)
+        {
+            if (argument == "on")
+                return new AutorunCommand(AutorunCommand.Command.AddAutorun);
+
+            if (argument == "off")
+                return new AutorunCommand(AutorunCommand.Command.RemoveAutorun);
+
+            return new UndefinedCommand("Неправильно указаны аргументы");
+        }
+
         private ICommand ConvertVolumeCommand(string argument)
         {
             if (argument == "+")
-                return new VolumeCommand(VolumeCommand.CommandType.VolumeUp);
+                return new VolumeCommand(VolumeCommand.Command.VolumeUp);
 
             if (argument == "-")
-                return new VolumeCommand(VolumeCommand.CommandType.VolumeDown);
+                return new VolumeCommand(VolumeCommand.Command.VolumeDown);
 
             return new UndefinedCommand("Неправильно указаны аргументы");
         }

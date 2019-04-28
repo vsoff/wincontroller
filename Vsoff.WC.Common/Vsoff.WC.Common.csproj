@@ -31,12 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.8.10.0, Culture=neutral, PublicKeyToken=c416bc1b32d97233, processorArchitecture=MSIL">
+      <HintPath>..\packages\TaskScheduler.2.8.10\lib\net452\Microsoft.Win32.TaskScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -65,6 +69,7 @@
     <Compile Include="Modules\Commands\ConsoleCommandReceiver.cs" />
     <Compile Include="Modules\Commands\Converters\ICommandConverter.cs" />
     <Compile Include="Modules\Commands\Converters\CommandConverter.cs" />
+    <Compile Include="Modules\Commands\Handlers\AutorunCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\KeyboardCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\LockCommandHandler.cs" />
@@ -72,6 +77,7 @@
     <Compile Include="Modules\Commands\Handlers\StatusCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\TakeScreenshotCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\UndefinedCommandHandler.cs" />
+    <Compile Include="Modules\Commands\Types\AutorunCommand.cs" />
     <Compile Include="Modules\Commands\Types\ICommand.cs" />
     <Compile Include="Modules\Commands\Types\KeyboardCommand.cs" />
     <Compile Include="Modules\Commands\Types\LockCommand.cs" />

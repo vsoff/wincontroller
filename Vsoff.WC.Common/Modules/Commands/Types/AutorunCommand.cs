@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Vsoff.WC.Common.Modules.Commands.Types
 {
-    public class VolumeCommand : ICommand
+    public class AutorunCommand : ICommand
     {
         public Command Type { get; set; }
 
-        public VolumeCommand(Command commandType)
+        public AutorunCommand(Command commandType)
         {
             Type = commandType;
         }
@@ -18,9 +18,8 @@ namespace Vsoff.WC.Common.Modules.Commands.Types
         public enum Command
         {
             Undefined,
-            VolumeDown,
-            VolumeUp,
-            Mute
+            AddAutorun,
+            RemoveAutorun
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Vsoff.WC.Common.Modules.System;
 
 namespace Vsoff.WC.Common.Modules.Config
 {
@@ -18,13 +19,15 @@ namespace Vsoff.WC.Common.Modules.Config
     public class AppConfigService : IAppConfigService
     {
         private const string _configName = "config.json";
+        private readonly string _configFullPath;
 
         private readonly object _saveLocker = new object();
 
         private AppConfig _config;
 
-        public AppConfigService()
+        public AppConfigService(ISystemService systemService)
         {
+            _configFullPath = Path.Combine(systemService.ApplicationFolder, _configName);
             OpenOrCreateConfig();
         }
 
@@ -51,20 +54,20 @@ namespace Vsoff.WC.Common.Modules.Config
             string newConfigContent = JsonConvert.SerializeObject(_config);
             lock (_saveLocker)
             {
-                File.WriteAllText(_configName, newConfigContent, Encoding.Unicode);
+                File.WriteAllText(_configFullPath, newConfigContent, Encoding.Unicode);
             }
         }
 
         private void OpenOrCreateConfig()
         {
-            if (!File.Exists(_configName))
+            if (!File.Exists(_configFullPath))
             {
                 _config = new AppConfig();
                 SaveConfigInFile();
                 return;
             }
 
-            string configContent = File.ReadAllText(_configName);
+            string configContent = File.ReadAllText(_configFullPath);
             _config = JsonConvert.DeserializeObject<AppConfig>(configContent);
         }
     }

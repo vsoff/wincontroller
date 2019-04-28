@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using System.Security.Principal;
 using System.Windows.Forms;
 using System.Reflection;
+using System.IO;
 
 namespace Vsoff.WC.Common.Modules.System
 {
     public interface ISystemService
     {
+        string ApplicationFolder { get; }
         string MachineName { get; }
 
         Process ExecuteCmd(string commandName, string arguments);
@@ -24,6 +26,7 @@ namespace Vsoff.WC.Common.Modules.System
 
     public class SystemService : ISystemService
     {
+        public string ApplicationFolder => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public string MachineName => Environment.MachineName;
 
         private readonly DateTime _applicationStartTime;

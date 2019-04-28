@@ -42,12 +42,12 @@ namespace Vsoff.WC.Common
             container.RegisterType<IWorkerController, DefaultWorkerController>(new SingletonLifetimeManager());
             container.RegisterType<IWinController, WinController>(new SingletonLifetimeManager());
 
+            // Сервисы.
+            container.RegisterType<IAutorunService, AutorunScheduleService>(new SingletonLifetimeManager());
             container.RegisterType<IScreenshotService, ScreenshotService>(new SingletonLifetimeManager());
-            container.RegisterType<ICommandService, CommandService>(new SingletonLifetimeManager());
-
-            container.RegisterType<ISystemService, SystemService>(new SingletonLifetimeManager());
-
             container.RegisterType<IAppConfigService, AppConfigService>(new SingletonLifetimeManager());
+            container.RegisterType<ICommandService, CommandService>(new SingletonLifetimeManager());
+            container.RegisterType<ISystemService, SystemService>(new SingletonLifetimeManager());
 
             RegisterCommandHandlers(container);
         }
@@ -58,6 +58,7 @@ namespace Vsoff.WC.Common
             container.RegisterType<ICommandHandler, UndefinedCommandHandler>(nameof(UndefinedCommandHandler), new SingletonLifetimeManager());
             container.RegisterType<ICommandHandler, ShutdownCommandHandler>(nameof(ShutdownCommandHandler), new SingletonLifetimeManager());
             container.RegisterType<ICommandHandler, KeyboardCommandHandler>(nameof(KeyboardCommandHandler), new SingletonLifetimeManager());
+            container.RegisterType<ICommandHandler, AutorunCommandHandler>(nameof(AutorunCommandHandler), new SingletonLifetimeManager());
             container.RegisterType<ICommandHandler, StatusCommandHandler>(nameof(StatusCommandHandler), new SingletonLifetimeManager());
             container.RegisterType<ICommandHandler, LockCommandHandler>(nameof(LockCommandHandler), new SingletonLifetimeManager());
         }
