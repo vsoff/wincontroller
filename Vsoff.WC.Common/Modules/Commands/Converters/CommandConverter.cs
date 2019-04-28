@@ -21,12 +21,18 @@ namespace Vsoff.WC.Common.Modules.Commands.Converters
                 case "/au":
                 case "/autorun": return ConvertAutorunCommand(argument.ToLower());
 
+                #region Volume module
+                case "/vd":
                 case "/voldown": return new VolumeCommand(VolumeCommand.Command.VolumeDown);
+                case "/vu":
                 case "/volup": return new VolumeCommand(VolumeCommand.Command.VolumeUp);
                 case "/vol":
                 case "/volume": return ConvertVolumeCommand(argument);
                 case "/mute": return new VolumeCommand(VolumeCommand.Command.Mute);
+                #endregion
 
+                case "/left": return new KeyboardCommand("{left}");
+                case "/right": return new KeyboardCommand("{right}");
                 case "/enter": return new KeyboardCommand("\n");
                 case "/space": return new KeyboardCommand(" ");
                 case "/key": return new KeyboardCommand(argument);

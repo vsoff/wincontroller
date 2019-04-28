@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Vsoff.WC.Common.Modules.System
 {
-    public interface IVolumeController
+    public interface IVolumeService
     {
         void VolumeDown();
         void VolumeUp();
         void Mute();
     }
 
-    public class VolumeController : IVolumeController
+    public class VolumeService : IVolumeService
     {
         private const int APPCOMMAND_VOLUME_MUTE = 0x80000;
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
