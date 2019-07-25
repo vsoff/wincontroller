@@ -89,10 +89,11 @@
     <Compile Include="Modules\Commands\Types\VolumeCommand.cs" />
     <Compile Include="Modules\Config\AppConfig.cs" />
     <Compile Include="Modules\Config\AppConfigService.cs" />
-    <Compile Include="Modules\System\AutorunService.cs" />
-    <Compile Include="Modules\System\VolumeService.cs" />
+    <Compile Include="Modules\System\Services\AutorunService.cs" />
+    <Compile Include="Modules\System\Services\UserMonitoringService.cs" />
+    <Compile Include="Modules\System\Services\VolumeService.cs" />
     <Compile Include="Modules\System\SystemInfo.cs" />
-    <Compile Include="Modules\System\SystemService.cs" />
+    <Compile Include="Modules\System\Services\SystemService.cs" />
     <Compile Include="Modules\System\WinApi.cs" />
     <Compile Include="Notifiers\ConsoleNotifier.cs" />
     <Compile Include="Notifiers\TelegramNotifier.cs" />

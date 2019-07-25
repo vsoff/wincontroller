@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vsoff.WC.Common.Modules.System
+namespace Vsoff.WC.Common.Modules.System.Services
 {
     public interface IVolumeService
     {

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Vsoff.WC.Common.Modules.System
+namespace Vsoff.WC.Common.Modules.System.Services
 {
     public interface IAutorunService
     {

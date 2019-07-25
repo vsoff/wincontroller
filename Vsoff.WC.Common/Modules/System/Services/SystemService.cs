@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
 
-namespace Vsoff.WC.Common.Modules.System
+namespace Vsoff.WC.Common.Modules.System.Services
 {
     public interface ISystemService
     {
@@ -38,7 +38,6 @@ namespace Vsoff.WC.Common.Modules.System
 
         public SystemInfo GetSystemInfo()
         {
-
             return new SystemInfo
             {
                 PublicIP = GetIpAddress(),

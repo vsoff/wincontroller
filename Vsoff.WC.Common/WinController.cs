@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
 using Vsoff.WC.Common.Modules.System;
+using Vsoff.WC.Common.Modules.System.Services;
 using Vsoff.WC.Core.Common.Workers;
 using Vsoff.WC.Core.Notifiers;
 
@@ -22,15 +23,18 @@ namespace Vsoff.WC.Common
     {
         private readonly ManualResetEvent _manualResetEvent;
 
+        private readonly IUserMonitoringService _userMonitoringService;
         private readonly ISystemService _systemService;
         private readonly ICommandReceiver _reciever;
         private readonly IMessenger _messenger;
 
         public WinController(
+            IUserMonitoringService userMonitoringService,
             ISystemService systemService,
             ICommandReceiver reciever,
             IMessenger messenger)
         {
+            _userMonitoringService = userMonitoringService ?? throw new ArgumentNullException(nameof(userMonitoringService));
             _systemService = systemService ?? throw new ArgumentNullException(nameof(systemService));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             _reciever = reciever ?? throw new ArgumentNullException(nameof(reciever));
@@ -41,13 +45,18 @@ namespace Vsoff.WC.Common
         public void Start()
         {
             _messenger.Send($"Машина `{_systemService.MachineName}` запущена\n{DateTime.Now}");
+
+            _userMonitoringService.StartMonitoring();
             _reciever.Start();
+
             _manualResetEvent.Reset();
         }
 
         public void Stop()
         {
             _reciever.Stop();
+            _userMonitoringService.StopMonitoring();
+
             _messenger.Send($"Машина `{_systemService.MachineName}` выключена\n{DateTime.Now}");
             _manualResetEvent.Set();
         }

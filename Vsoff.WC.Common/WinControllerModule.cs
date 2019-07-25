@@ -10,6 +10,7 @@ using Vsoff.WC.Common.Modules.Commands.Handlers;
 using Vsoff.WC.Common.Modules.Config;
 using Vsoff.WC.Common.Modules.Screenshots;
 using Vsoff.WC.Common.Modules.System;
+using Vsoff.WC.Common.Modules.System.Services;
 using Vsoff.WC.Common.Notifiers;
 using Vsoff.WC.Core.Common.Workers;
 using Vsoff.WC.Core.Notifiers;
@@ -43,6 +44,7 @@ namespace Vsoff.WC.Common
             container.RegisterType<IWinController, WinController>(new SingletonLifetimeManager());
 
             // Сервисы.
+            container.RegisterType<IUserMonitoringService, UserMonitoringService>(new SingletonLifetimeManager());
             container.RegisterType<IAutorunService, AutorunScheduleService>(new SingletonLifetimeManager());
             container.RegisterType<IScreenshotService, ScreenshotService>(new SingletonLifetimeManager());
             container.RegisterType<IAppConfigService, AppConfigService>(new SingletonLifetimeManager());
