@@ -14,7 +14,7 @@ namespace Vsoff.WC.Client.Modules.System
         public string MachineName { get; set; }
         public string UserName { get; set; }
         public bool IsAdminUser { get; set; }
-        public string PublicIP { get; set; }
+        public string PublicIp { get; set; }
         public string MonitorResolution { get; set; }
         public string AppVersion { get; set; }
     }

@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vsoff.WC.Models\Vsoff.WC.Models.csproj" />
+  </ItemGroup>
+
 </Project>

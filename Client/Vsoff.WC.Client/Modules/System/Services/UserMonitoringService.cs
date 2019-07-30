@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Config;
-using Vsoff.WC.Core.Common.Workers;
+using Vsoff.WC.Common.Workers;
 
 namespace Vsoff.WC.Client.Modules.System.Services
 {

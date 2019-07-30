@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Commands.Types;
 using Vsoff.WC.Client.Modules.System;
 using Vsoff.WC.Client.Modules.System.Services;
-using Vsoff.WC.Core.Common;
+using Vsoff.WC.Client.Notifiers;
 
 namespace Vsoff.WC.Client.Modules.Commands.Handlers
 {
@@ -42,7 +39,7 @@ namespace Vsoff.WC.Client.Modules.Commands.Handlers
             sb.AppendLine($"* MachineName: {info.MachineName}");
             sb.AppendLine($"* UserName: {info.UserName}");
             sb.AppendLine($"* Admin: {(info.IsAdminUser ? "Yes" : "No")}");
-            sb.AppendLine($"* IP: {info.PublicIP}");
+            sb.AppendLine($"* IP: {info.PublicIp}");
             sb.AppendLine($"* Monitor: {info.MonitorResolution}");
             sb.AppendLine($"* AppVersion: {info.AppVersion}");
             sb.AppendLine($" =========================== ");

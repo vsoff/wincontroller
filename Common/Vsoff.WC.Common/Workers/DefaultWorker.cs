@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
-namespace Vsoff.WC.Core.Common.Workers
+namespace Vsoff.WC.Common.Workers
 {
     public class DefaultWorker : IWorker
     {

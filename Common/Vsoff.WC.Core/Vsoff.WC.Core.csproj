@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Vsoff.WC.Domain\Vsoff.WC.Domain.csproj" />
+    <ProjectReference Include="..\Vsoff.WC.Models\Vsoff.WC.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\Configs\" />
+  </ItemGroup>
+
+</Project>

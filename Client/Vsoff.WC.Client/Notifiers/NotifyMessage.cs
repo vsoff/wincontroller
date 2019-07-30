@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vsoff.WC.Core.Common
+namespace Vsoff.WC.Client.Notifiers
 {
     public class NotifyMessage
     {

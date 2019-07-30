@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using Telegram.Bot;
 using Telegram.Bot.Types.InputFiles;
 using Vsoff.WC.Client.Modules.Config;
-using Vsoff.WC.Core.Common;
-using Vsoff.WC.Core.Notifiers;
 
 namespace Vsoff.WC.Client.Notifiers
 {

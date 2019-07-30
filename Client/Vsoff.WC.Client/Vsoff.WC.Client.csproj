@@ -93,6 +93,8 @@
     <Compile Include="Modules\System\Services\SystemService.cs" />
     <Compile Include="Modules\System\WinApi.cs" />
     <Compile Include="Notifiers\ConsoleNotifier.cs" />
+    <Compile Include="Notifiers\INotifier.cs" />
+    <Compile Include="Notifiers\NotifyMessage.cs" />
     <Compile Include="Notifiers\TelegramNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\Commands\CommandReciever.cs" />

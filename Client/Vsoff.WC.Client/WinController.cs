@@ -7,8 +7,6 @@ using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Commands;
 using Vsoff.WC.Client.Modules.System;
 using Vsoff.WC.Client.Modules.System.Services;
-using Vsoff.WC.Core.Common.Workers;
-using Vsoff.WC.Core.Notifiers;
 
 namespace Vsoff.WC.Client
 {

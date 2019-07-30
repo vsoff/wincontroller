@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Vsoff.WC.Core.Common.Workers
+namespace Vsoff.WC.Common.Workers
 {
     public interface IWorker : IDisposable
     {

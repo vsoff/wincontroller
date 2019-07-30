@@ -1,4 +1,4 @@
-﻿namespace WinController.Client.ServiceApp
+﻿namespace WinController.Client.Service
 {
     partial class WinControllerService
     {

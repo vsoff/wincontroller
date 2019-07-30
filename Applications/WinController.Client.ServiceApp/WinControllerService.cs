@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using Unity;
 using Vsoff.WC.Client;
-using Vsoff.WC.Client.Messengers;
-using Vsoff.WC.Client.Modules.System;
-using Vsoff.WC.Core.Common;
-using Vsoff.WC.Core.Notifiers;
+using Vsoff.WC.Client.Notifiers;
 
-namespace WinController.Client.ServiceApp
+namespace WinController.Client.Service
 {
     partial class WinControllerService : ServiceBase
     {

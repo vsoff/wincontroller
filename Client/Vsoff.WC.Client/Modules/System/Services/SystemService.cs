@@ -40,7 +40,7 @@ namespace Vsoff.WC.Client.Modules.System.Services
         {
             return new SystemInfo
             {
-                PublicIP = GetIpAddress(),
+                PublicIp = GetIpAddress(),
                 StartTime = _applicationStartTime,
                 IsAdminUser = IsUserAdministrator(),
                 MachineName = MachineName,

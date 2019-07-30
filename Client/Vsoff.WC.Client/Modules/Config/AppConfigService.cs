@@ -19,7 +19,7 @@ namespace Vsoff.WC.Client.Modules.Config
 
     public class AppConfigService : IAppConfigService
     {
-        private const string _configName = "config.json";
+        private const string ConfigName = "config.json";
         private readonly string _configFullPath;
 
         private readonly object _saveLocker = new object();
@@ -28,7 +28,7 @@ namespace Vsoff.WC.Client.Modules.Config
 
         public AppConfigService(ISystemService systemService)
         {
-            _configFullPath = Path.Combine(systemService.ApplicationFolder, _configName);
+            _configFullPath = Path.Combine(systemService.ApplicationFolder, ConfigName);
             OpenOrCreateConfig();
         }
 
@@ -39,8 +39,8 @@ namespace Vsoff.WC.Client.Modules.Config
             // Компилируем action.
             var newValue = Expression.Parameter(field.Body.Type);
             var assign = Expression.Lambda<Action<AppConfig, T>>(
-            Expression.Assign(field.Body, newValue),
-            field.Parameters[0], newValue);
+                Expression.Assign(field.Body, newValue),
+                field.Parameters[0], newValue);
 
             // Изменяем параметр.
             var setter = assign.Compile();

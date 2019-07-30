@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vsoff.WC.Core.Common;
-using Vsoff.WC.Core.Notifiers;
 
 namespace Vsoff.WC.Client.Notifiers
 {

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Vsoff.WC.Core.Common;
-using Vsoff.WC.Core.Common.Workers;
-using Vsoff.WC.Core.Notifiers;
+using Vsoff.WC.Client.Notifiers;
+using Vsoff.WC.Common.Workers;
 
 namespace Vsoff.WC.Client.Messengers
 {
