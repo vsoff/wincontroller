@@ -62,12 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Messengers\Messenger.cs" />
-    <Compile Include="Modules\Commands\ConsoleCommandReceiver.cs" />
-    <Compile Include="Modules\Commands\Converters\ICommandConverter.cs" />
-    <Compile Include="Modules\Commands\Converters\CommandConverter.cs" />
     <Compile Include="Modules\Commands\Handlers\AutorunCommandHandler.cs" />
-    <Compile Include="Modules\Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\KeyboardCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\LockCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\ShutdownCommandHandler.cs" />
@@ -75,15 +70,6 @@
     <Compile Include="Modules\Commands\Handlers\TakeScreenshotCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\UndefinedCommandHandler.cs" />
     <Compile Include="Modules\Commands\Handlers\VolumeCommandHandler.cs" />
-    <Compile Include="Modules\Commands\Types\AutorunCommand.cs" />
-    <Compile Include="Modules\Commands\Types\ICommand.cs" />
-    <Compile Include="Modules\Commands\Types\KeyboardCommand.cs" />
-    <Compile Include="Modules\Commands\Types\LockCommand.cs" />
-    <Compile Include="Modules\Commands\Types\ShutdownCommand.cs" />
-    <Compile Include="Modules\Commands\Types\StatusCommand.cs" />
-    <Compile Include="Modules\Commands\Types\TakeScreenshotCommand.cs" />
-    <Compile Include="Modules\Commands\Types\UndefinedCommand.cs" />
-    <Compile Include="Modules\Commands\Types\VolumeCommand.cs" />
     <Compile Include="Modules\Config\AppConfig.cs" />
     <Compile Include="Modules\Config\AppConfigService.cs" />
     <Compile Include="Modules\System\Services\AutorunService.cs" />
@@ -92,13 +78,7 @@
     <Compile Include="Modules\System\SystemInfo.cs" />
     <Compile Include="Modules\System\Services\SystemService.cs" />
     <Compile Include="Modules\System\WinApi.cs" />
-    <Compile Include="Notifiers\ConsoleNotifier.cs" />
-    <Compile Include="Notifiers\INotifier.cs" />
-    <Compile Include="Notifiers\NotifyMessage.cs" />
-    <Compile Include="Notifiers\TelegramNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Modules\Commands\CommandReciever.cs" />
-    <Compile Include="Modules\Commands\CommandService.cs" />
     <Compile Include="Modules\Screenshots\ScreenshotService.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="WinController.cs" />
@@ -111,6 +91,10 @@
     <ProjectReference Include="..\..\Common\Vsoff.WC.Common\Vsoff.WC.Common.csproj">
       <Project>{7b6e43b2-76c2-48ac-a211-11220bd1b00a}</Project>
       <Name>Vsoff.WC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Vsoff.WC.Core\Vsoff.WC.Core.csproj">
+      <Project>{6FC86F99-8FE5-4120-88B4-75173EE09381}</Project>
+      <Name>Vsoff.WC.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

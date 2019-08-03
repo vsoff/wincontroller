@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Config;
 using Vsoff.WC.Common.Workers;
+using Vsoff.WC.Core.Modules.Configs;
 
 namespace Vsoff.WC.Client.Modules.System.Services
 {
@@ -25,7 +26,7 @@ namespace Vsoff.WC.Client.Modules.System.Services
         /// </summary>
         private readonly TimeSpan _stateCheckPeriod = TimeSpan.FromSeconds(3);
 
-        private readonly IAppConfigService _appConfigService;
+        private readonly IConfigService<AppConfig> _appConfigService;
         private readonly IMessenger _messenger;
         private readonly IWorker _worker;
 
@@ -34,14 +35,15 @@ namespace Vsoff.WC.Client.Modules.System.Services
         private bool _isUserActive;
 
         public UserMonitoringService(
-            IAppConfigService appConfigService,
+            IConfigService<AppConfig> appConfigService,
             IWorkerController workerController,
             IMessenger messenger)
         {
             _appConfigService = appConfigService ?? throw new ArgumentNullException(nameof(appConfigService));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
-            _worker = workerController?.CreateWorker(UpdateUserActivity) ?? throw new ArgumentNullException(nameof(workerController));
+            _worker = workerController?.CreateWorker(UpdateUserActivity) ??
+                      throw new ArgumentNullException(nameof(workerController));
         }
 
         public DateTime GetLastActivityTime() => _cursorLastPositionTime;

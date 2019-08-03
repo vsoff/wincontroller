@@ -7,12 +7,13 @@ using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Commands.Types;
 using Vsoff.WC.Client.Modules.System;
 using Vsoff.WC.Client.Modules.System.Services;
+using Vsoff.WC.Core.Modules.Commands;
 
 namespace Vsoff.WC.Client.Modules.Commands.Handlers
 {
     public class AutorunCommandHandler : CommandHandler<AutorunCommand>
     {
-        private readonly System.Services.IAutorunService _autorunService;
+        private readonly IAutorunService _autorunService;
         private readonly IMessenger _messenger;
 
         public AutorunCommandHandler(
@@ -37,6 +38,7 @@ namespace Vsoff.WC.Client.Modules.Commands.Handlers
                         _autorunService.Register();
                         _messenger.Send("[УСПЕХ] приложение зарегистрировано в автозапуске");
                     }
+
                     break;
                 case AutorunCommand.Command.RemoveAutorun:
                     if (!_autorunService.IsRegisterExists())
@@ -48,6 +50,7 @@ namespace Vsoff.WC.Client.Modules.Commands.Handlers
                         _autorunService.Unregister();
                         _messenger.Send("[УСПЕХ] приложение удалено из автозапуске");
                     }
+
                     break;
                 default:
                     _messenger.Send("Неизвестный тип команды настройки автозапуска");

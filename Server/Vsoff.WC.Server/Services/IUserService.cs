@@ -8,5 +8,6 @@ namespace Vsoff.WC.Server.Services
     {
         User GetUser(string userName);
         User GetUser(string userName, string passwordHash);
+        User GetUserByTelegramId(int telegramId);
     }
 }

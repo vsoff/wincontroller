@@ -8,6 +8,7 @@ using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Commands.Types;
 using Vsoff.WC.Client.Modules.System;
 using Vsoff.WC.Client.Modules.System.Services;
+using Vsoff.WC.Core.Modules.Commands;
 
 namespace Vsoff.WC.Client.Modules.Commands.Handlers
 {

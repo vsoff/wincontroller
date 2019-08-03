@@ -5,10 +5,11 @@ using Vsoff.WC.Common.Enums;
 
 namespace Vsoff.WC.Server.Data.Entities
 {
-    public class UserDto
-    {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public RoleTypes Role { get; set; }
-    }
+    //public class UserDto
+    //{
+    //    public int Id { get; set; }
+    //    public string Login { get; set; }
+    //    public string Password { get; set; }
+    //    public RoleTypes Role { get; set; }
+    //}
 }

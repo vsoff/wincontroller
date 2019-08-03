@@ -2,7 +2,6 @@
 
 namespace Vsoff.WC.Common.Enums
 {
-    [Flags]
     public enum RoleTypes : byte
     {
         None = 0,

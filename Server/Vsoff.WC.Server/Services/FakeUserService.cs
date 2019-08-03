@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Vsoff.WC.Common.Enums;
+using Vsoff.WC.Core.Modules.Configs;
 using Vsoff.WC.Domain.Main;
+using Vsoff.WC.Server.Modules.Configs;
 
 namespace Vsoff.WC.Server.Services
 {
@@ -13,14 +16,23 @@ namespace Vsoff.WC.Server.Services
             new User {Login = "qwerty", Password = "55555", Role = RoleTypes.User}
         };
 
-        public User GetUser(string userName)
+        public FakeUserService(IConfigService<ServerConfig> scs)
         {
-            return _users.First(x => x.Login == userName);
+            var config = scs.GetConfig();
+            _users.Add(new User
+            {
+                Login = "admin",
+                Password = Guid.NewGuid().ToString("N"),
+                Role = RoleTypes.Admin,
+                TelegramId = config.AdminTelegramId
+            });
         }
 
-        public User GetUser(string userName, string passwordHash)
-        {
-            return _users.FirstOrDefault(x => x.Login == userName && x.Password == passwordHash);
-        }
+        public User GetUser(string userName) => _users.First(x => x.Login == userName);
+
+        public User GetUser(string userName, string passwordHash) =>
+            _users.FirstOrDefault(x => x.Login == userName && x.Password == passwordHash);
+
+        public User GetUserByTelegramId(int telegramId) => _users.FirstOrDefault(x => x.TelegramId == telegramId);
     }
 }

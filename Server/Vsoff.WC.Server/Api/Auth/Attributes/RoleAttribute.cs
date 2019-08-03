@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Vsoff.WC.Common.Enums;
-using Vsoff.WC.Core.Modules.RolesModule;
+using Vsoff.WC.Server.Modules.Roles;
 
 namespace Vsoff.WC.Server.Api.Auth.Attributes
 {

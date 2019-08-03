@@ -31,8 +31,6 @@ namespace Vsoff.WC.Server.Api.Auth
         /// Возвращает симметричный ключ шифрования.
         /// </summary>
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
-        {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key));
-        }
+            => new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key));
     }
 }

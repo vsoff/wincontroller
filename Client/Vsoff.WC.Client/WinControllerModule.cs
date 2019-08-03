@@ -13,6 +13,8 @@ using Vsoff.WC.Client.Modules.System;
 using Vsoff.WC.Client.Modules.System.Services;
 using Vsoff.WC.Client.Notifiers;
 using Vsoff.WC.Common.Workers;
+using Vsoff.WC.Core.Modules.Commands;
+using Vsoff.WC.Core.Modules.Commands.Handlers;
 
 namespace Vsoff.WC.Client
 {
@@ -47,7 +49,7 @@ namespace Vsoff.WC.Client
             container.RegisterType<IAutorunService, AutorunScheduleService>(new SingletonLifetimeManager());
             container.RegisterType<IScreenshotService, ScreenshotService>(new SingletonLifetimeManager());
             container.RegisterType<IAppConfigService, AppConfigService>(new SingletonLifetimeManager());
-            container.RegisterType<ICommandService, CommandService>(new SingletonLifetimeManager());
+            container.RegisterType<ICommandService, CommandServiceBase>(new SingletonLifetimeManager());
             container.RegisterType<ISystemService, SystemService>(new SingletonLifetimeManager());
             container.RegisterType<IVolumeService, VolumeService>(new SingletonLifetimeManager());
 

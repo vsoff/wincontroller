@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vsoff.WC.Core.Modules.Configs;
 
 namespace Vsoff.WC.Client.Modules.Config
 {
-    public class AppConfig : ICloneable
+    public class AppConfig : ConfigBase
     {
         public long AdminId { get; set; }
         public string ProxyIp { get; set; }
@@ -21,8 +22,5 @@ namespace Vsoff.WC.Client.Modules.Config
             TelegramToken = "000000:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             UserActivitySessionDuration = TimeSpan.FromMinutes(5);
         }
-
-        public AppConfig GetClone() => (AppConfig)MemberwiseClone();
-        public object Clone() => MemberwiseClone();
     }
 }

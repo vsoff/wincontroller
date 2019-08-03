@@ -3,6 +3,7 @@ using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Commands.Types;
 using Vsoff.WC.Client.Modules.Screenshots;
 using Vsoff.WC.Client.Notifiers;
+using Vsoff.WC.Core.Modules.Commands;
 
 namespace Vsoff.WC.Client.Modules.Commands.Handlers
 {

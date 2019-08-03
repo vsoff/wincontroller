@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Vsoff.WC.Core.Modules.RolesModule;
 using Vsoff.WC.Domain.Auth;
 using Vsoff.WC.Domain.Main;
+using Vsoff.WC.Server.Modules.Roles;
 using Vsoff.WC.Server.Services;
 
 namespace Vsoff.WC.Server.Api.Auth

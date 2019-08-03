@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vsoff.WC.Client.Messengers;
 using Vsoff.WC.Client.Modules.Commands.Types;
+using Vsoff.WC.Core.Modules.Commands;
 
 namespace Vsoff.WC.Client.Modules.Commands.Handlers
 {
