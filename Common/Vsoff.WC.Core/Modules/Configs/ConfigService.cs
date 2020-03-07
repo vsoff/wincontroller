@@ -10,7 +10,7 @@ namespace Vsoff.WC.Core.Modules.Configs
     public abstract class ConfigService<TConfig> : IConfigService<TConfig> where TConfig : ConfigBase, new()
     {
         private readonly string _configFullPath;
-        private readonly object _saveLocker;
+        private readonly object _ioLocker;
         private TConfig _config;
 
         protected abstract string ConfigName { get; }
@@ -20,7 +20,7 @@ namespace Vsoff.WC.Core.Modules.Configs
             if (string.IsNullOrWhiteSpace(ConfigName))
                 throw new Exception("Название файла конфигурации не должно быть пустым");
 
-            _saveLocker = new object();
+            _ioLocker = new object();
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             _configFullPath = Path.Combine(path ?? string.Empty, ConfigName);
             OpenOrCreateConfig();
@@ -46,8 +46,8 @@ namespace Vsoff.WC.Core.Modules.Configs
 
         private void SaveConfigInFile()
         {
-            string newConfigContent = JsonConvert.SerializeObject(_config);
-            lock (_saveLocker)
+            string newConfigContent = JsonConvert.SerializeObject(_config, Formatting.Indented);
+            lock (_ioLocker)
             {
                 File.WriteAllText(_configFullPath, newConfigContent, Encoding.Unicode);
             }
@@ -62,8 +62,11 @@ namespace Vsoff.WC.Core.Modules.Configs
                 return;
             }
 
-            string configContent = File.ReadAllText(_configFullPath);
-            _config = JsonConvert.DeserializeObject<TConfig>(configContent);
+            lock (_ioLocker)
+            {
+                string configContent = File.ReadAllText(_configFullPath);
+                _config = JsonConvert.DeserializeObject<TConfig>(configContent);
+            }
         }
     }
 }

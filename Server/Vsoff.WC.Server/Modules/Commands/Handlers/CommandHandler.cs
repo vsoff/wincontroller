@@ -10,15 +10,15 @@ namespace Vsoff.WC.Core.Modules.Commands.Handlers
     {
         public Type CommandType => typeof(TCommand);
 
-        public void Handle(CommandInfo commandInfo)
+        public void Handle(UserCommand userCommand)
         {
-            Type t = commandInfo.Command.GetType();
+            Type t = userCommand.Command.GetType();
             if (t != CommandType)
                 throw new ArgumentException($"Тип команды {t}, а должен быть {CommandType}");
 
-            Handle(commandInfo, (TCommand) commandInfo.Command);
+            Handle(userCommand, (TCommand) userCommand.Command);
         }
 
-        protected abstract void Handle(CommandInfo commandInfo, TCommand command);
+        protected abstract void Handle(UserCommand userCommand, TCommand command);
     }
 }

@@ -24,15 +24,15 @@ namespace Vsoff.WC.Server.Modules.Commands.Handlers
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
-        protected override void Handle(CommandInfo commandInfo, TCommand command)
+        protected override void Handle(UserCommand userCommand, TCommand command)
         {
-            if (commandInfo.MachineId == Guid.Empty)
+            if (!userCommand.MachineId.HasValue)
             {
-                _messenger.Send(new NotifyMessage("Не указана машина, для которой передаётся команда"));
+                _messenger.Send(userCommand.UserId, "Не указана машина, для которой передаётся команда");
                 return;
             }
 
-            _commandService.Add(commandInfo);
+            _commandService.Add(userCommand);
         }
     }
 }

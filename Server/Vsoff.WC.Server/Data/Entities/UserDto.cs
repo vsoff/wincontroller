@@ -10,6 +10,6 @@ namespace Vsoff.WC.Server.Data.Entities
     //    public int Id { get; set; }
     //    public string Login { get; set; }
     //    public string Password { get; set; }
-    //    public RoleTypes Role { get; set; }
+    //    public RoleType Role { get; set; }
     //}
 }

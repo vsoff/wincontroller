@@ -11,7 +11,7 @@ namespace Vsoff.WC.Server.Modules.Commands
 {
     public interface ICommandInvoker
     {
-        void InvokeCommand(CommandInfo commandInfo);
+        void InvokeCommand(UserCommand userCommand);
     }
 
     public class CommandInvoker : ICommandInvoker
@@ -25,17 +25,14 @@ namespace Vsoff.WC.Server.Modules.Commands
             _commandHandlersMap = new ConcurrentDictionary<Type, ICommandHandler>(dict);
         }
 
-        public void InvokeCommand(CommandInfo commandInfo)
+        public void InvokeCommand(UserCommand userCommand)
         {
-            if (commandInfo.User.IsBlocked)
-                return;
-
-            Type t = commandInfo.Command.GetType();
+            Type t = userCommand.Command.GetType();
 
             if (!_commandHandlersMap.TryGetValue(t, out var handler))
                 throw new KeyNotFoundException($"Нет зарегистрированного обработчика команды с типом `{t}`");
 
-            handler.Handle(commandInfo);
+            handler.Handle(userCommand);
         }
     }
 }

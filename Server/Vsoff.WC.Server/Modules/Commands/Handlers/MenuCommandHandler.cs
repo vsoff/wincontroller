@@ -17,9 +17,9 @@ namespace Vsoff.WC.Server.Modules.Commands.Handlers
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
-        protected override void Handle(CommandInfo commandInfo, MenuCommand command)
+        protected override void Handle(UserCommand userCommand, MenuCommand command)
         {
-            _messenger.Send(new NotifyMessage(command.Text,command.Menu));
+            _messenger.Send(userCommand.UserId, command.Menu);
             //throw new NotImplementedException();
         }
     }

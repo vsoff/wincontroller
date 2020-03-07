@@ -13,7 +13,7 @@ namespace Vsoff.WC.Server.Api.Auth
 {
     public interface IServerAuthorizationService
     {
-        Token GenerateToken(User user, TimeSpan? tokenLifeTime = null);
+        Token GenerateToken(Account account, TimeSpan? tokenLifeTime = null);
 
         void BlockToken(string accessToken);
     }
@@ -29,9 +29,9 @@ namespace Vsoff.WC.Server.Api.Auth
             throw new NotImplementedException();
         }
 
-        public Token GenerateToken(User user, TimeSpan? tokenLifeTime = null)
+        public Token GenerateToken(Account account, TimeSpan? tokenLifeTime = null)
         {
-            var identity = GetIdentity(user);
+            var identity = GetIdentity(account);
             if (identity == null)
             {
                 return null;
@@ -58,14 +58,14 @@ namespace Vsoff.WC.Server.Api.Auth
             };
         }
 
-        private ClaimsIdentity GetIdentity(User user)
+        private ClaimsIdentity GetIdentity(Account account)
         {
-            if (user != null)
+            if (account != null)
             {
                 var claims = new[]
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                    user.Role.ToClaim(),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, account.Login),
+                    account.Role.ToClaim(),
                 };
 
                 return new ClaimsIdentity(claims, "Token",

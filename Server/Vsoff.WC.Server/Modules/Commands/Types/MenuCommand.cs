@@ -9,12 +9,10 @@ namespace Vsoff.WC.Server.Modules.Commands.Types
 {
     public class MenuCommand : Command
     {
-        public string Text { get; set; }
         public MenuType Menu { get; set; }
 
-        public MenuCommand(string text, MenuType menu)
+        public MenuCommand(MenuType menu)
         {
-            Text = text;
             Menu = menu;
         }
     }

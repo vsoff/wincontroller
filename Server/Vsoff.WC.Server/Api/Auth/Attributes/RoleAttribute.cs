@@ -12,7 +12,7 @@ namespace Vsoff.WC.Server.Api.Auth.Attributes
 {
     public class RoleAttribute : TypeFilterAttribute
     {
-        public RoleAttribute(RoleTypes role) : base(typeof(RoleRequirementFilter))
+        public RoleAttribute(RoleType role) : base(typeof(RoleRequirementFilter))
         {
             Arguments = new object[] {role.ToClaim()};
         }

@@ -2,7 +2,7 @@
 
 namespace Vsoff.WC.Common.Enums
 {
-    public enum RoleTypes : byte
+    public enum RoleType : byte
     {
         None = 0,
         Admin = 1,

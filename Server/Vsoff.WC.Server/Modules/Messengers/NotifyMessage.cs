@@ -5,21 +5,24 @@ namespace Vsoff.WC.Server.Modules.Messengers
 {
     public class NotifyMessage
     {
+        public int UserId { get; set; }
+
         public DataType Type { get; set; }
         public string Text { get; set; }
         public MenuType MenuType { get; set; }
         public byte[] Photo { get; set; }
 
-        public NotifyMessage(string text, byte[] photo = null)
+        public NotifyMessage(int userId, string text, byte[] photo = null)
         {
+            UserId = userId;
             Text = text;
             Photo = photo;
             Type = photo == null ? DataType.Text : DataType.Photo;
         }
 
-        public NotifyMessage(string text, MenuType menuType)
+        public NotifyMessage(int userId, MenuType menuType)
         {
-            Text = text;
+            UserId = userId;
             Type = DataType.Menu;
             MenuType = menuType;
         }

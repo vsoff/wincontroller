@@ -14,25 +14,25 @@ namespace WinController.Server.WebApp.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly IServerAuthorizationService _serverAuthorizationService;
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
         public AuthorizationController(
             IServerAuthorizationService serverAuthorizationService,
-            IUserService userService)
+            IAccountService accountService)
         {
             _serverAuthorizationService = serverAuthorizationService;
-            _userService = userService;
+            _accountService = accountService;
         }
 
         [AllowAnonymous]
         [HttpPost("token")]
         public object Token([FromBody] LoginRequestModel loginRequest)
         {
-            User user = _userService.GetUser(loginRequest.Username, loginRequest.Password);
-            if (user == null)
+            Account account = _accountService.GetAccount(loginRequest.Username, loginRequest.Password);
+            if (account == null)
                 return null;
 
-            Token token = _serverAuthorizationService.GenerateToken(user);
+            Token token = _serverAuthorizationService.GenerateToken(account);
             return token.ToModel();
         }
     }

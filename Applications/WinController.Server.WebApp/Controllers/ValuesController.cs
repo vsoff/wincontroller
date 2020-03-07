@@ -7,7 +7,7 @@ using Vsoff.WC.Server.Api.Auth.Attributes;
 namespace WinController.Server.WebApp.Controllers
 {
     [Authorize]
-    [Role(RoleTypes.User)]
+    [Role(RoleType.User)]
     [Route("api/values")]
     [ApiController]
     public class ValuesController : ControllerBase

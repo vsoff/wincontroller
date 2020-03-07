@@ -6,12 +6,12 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Vsoff.WC.Server.Modules.Menu
 {
-    public interface ITelegramMenuBuilder
+    public interface ITelegramMenuProvider
     {
         IReplyMarkup BuildMenuMarkup(MenuType menuType);
     }
 
-    public class TelegramMenuBuilder : ITelegramMenuBuilder
+    public class TelegramMenuProvider : ITelegramMenuProvider
     {
         public IReplyMarkup BuildMenuMarkup(MenuType menuType)
         {
@@ -21,9 +21,9 @@ namespace Vsoff.WC.Server.Modules.Menu
             {
                 case MenuType.Main:
                     return builder
-                        .AddButtons("text1")
-                        .AddButtons("text2", "text44")
-                        .AddButtons("421", "444")
+                        .AddButtons("/start")
+                        .AddButtons("/menu", "/status")
+                        .AddButtons("<< Назад")
                         .Build();
                 default: throw new Exception($"Unknown MenuType {menuType}");
             }

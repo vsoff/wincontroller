@@ -5,7 +5,7 @@ namespace Vsoff.WC.Server.Modules.Roles
 {
     public static class RoleTypesExtension
     {
-        public static Claim ToClaim(this RoleTypes role)
+        public static Claim ToClaim(this RoleType role)
         {
             return new Claim(ClaimsIdentity.DefaultRoleClaimType, ((int) role).ToString());
         }

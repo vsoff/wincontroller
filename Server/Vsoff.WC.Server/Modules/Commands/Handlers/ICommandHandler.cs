@@ -9,6 +9,6 @@ namespace Vsoff.WC.Core.Modules.Commands.Handlers
     public interface ICommandHandler
     {
         Type CommandType { get; }
-        void Handle(CommandInfo commandInfo);
+        void Handle(UserCommand userCommand);
     }
 }

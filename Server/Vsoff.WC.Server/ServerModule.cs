@@ -29,24 +29,16 @@ namespace Vsoff.WC.Server
             builder.RegisterInstance(configService).As<IConfigService<ServerConfig>>().SingleInstance();
 
             builder.RegisterType<ServerAuthorizationService>().As<IServerAuthorizationService>().SingleInstance();
+            builder.RegisterType<CommandAutoInvoker>().As<ICommandAutoInvoker>().SingleInstance().AutoActivate();
+            builder.RegisterType<TelegramMessenger>().As<IMessenger>().SingleInstance().AutoActivate();
+            builder.RegisterType<TelegramMenuProvider>().As<ITelegramMenuProvider>().SingleInstance();
             builder.RegisterType<DefaultWorkerController>().As<IWorkerController>().SingleInstance();
-            builder.RegisterType<TelegramMenuBuilder>().As<ITelegramMenuBuilder>().SingleInstance();
-            builder.RegisterType<Messenger>().As<IMessenger>().SingleInstance().AutoActivate();
             builder.RegisterType<CommandConverter>().As<ICommandConverter>().SingleInstance();
             builder.RegisterType<CommandInvoker>().As<ICommandInvoker>().SingleInstance();
-            builder.RegisterType<FakeUserService>().As<IUserService>().SingleInstance();
-            builder.RegisterType<FakeCommandService>().As<ICommandService>().SingleInstance();
 
-            if (config.DebugMode)
-            {
-                builder.RegisterType<ConsoleCommandReceiver>().As<ICommandReceiver>().SingleInstance().AutoActivate();
-                builder.RegisterType<ConsoleNotifier>().As<INotifier>().SingleInstance();
-            }
-            else
-            {
-                builder.RegisterType<TelegramCommandReceiver>().As<ICommandReceiver>().SingleInstance().AutoActivate();
-                builder.RegisterType<TelegramNotifier>().As<INotifier>().SingleInstance();
-            }
+            builder.RegisterType<FakeAccountContextService>().As<IAccountContextService>().SingleInstance();
+            builder.RegisterType<FakeAccountService>().As<IAccountService>().SingleInstance();
+            builder.RegisterType<FakeCommandService>().As<ICommandService>().SingleInstance();
 
             RegisterCommandHandlers(builder);
         }
@@ -56,7 +48,13 @@ namespace Vsoff.WC.Server
             builder.RegisterType<UndefinedCommandHandler>().As<ICommandHandler>().SingleInstance();
             builder.RegisterType<MenuCommandHandler>().As<ICommandHandler>().SingleInstance();
 
+            builder.RegisterType<RemoteCommandHandler<AutorunCommand>>().As<ICommandHandler>().SingleInstance();
+            builder.RegisterType<RemoteCommandHandler<KeyboardCommand>>().As<ICommandHandler>().SingleInstance();
+            builder.RegisterType<RemoteCommandHandler<LockCommand>>().As<ICommandHandler>().SingleInstance();
+            builder.RegisterType<RemoteCommandHandler<ShutdownCommand>>().As<ICommandHandler>().SingleInstance();
             builder.RegisterType<RemoteCommandHandler<StatusCommand>>().As<ICommandHandler>().SingleInstance();
+            builder.RegisterType<RemoteCommandHandler<TakeScreenshotCommand>>().As<ICommandHandler>().SingleInstance();
+            builder.RegisterType<RemoteCommandHandler<VolumeCommand>>().As<ICommandHandler>().SingleInstance();
         }
     }
 }
