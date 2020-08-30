@@ -44,8 +44,7 @@ namespace Vsoff.WC.Common.Modules.Commands
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
             var config = _appConfigService.GetConfig();
-            IWebProxy proxy = new WebProxy(config.ProxyIp);
-            _client = new TelegramBotClient(config.TelegramToken, proxy);
+            _client = new TelegramBotClient(config.TelegramToken);
             _client.OnMessage += OnMessageReceived;
         }
 

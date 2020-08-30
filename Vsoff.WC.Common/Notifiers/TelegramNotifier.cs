@@ -25,8 +25,7 @@ namespace Vsoff.WC.Common.Notifiers
             _appConfigService = appConfigService ?? throw new ArgumentNullException(nameof(appConfigService));
 
             var config = _appConfigService.GetConfig();
-            IWebProxy proxy = new WebProxy(config.ProxyIp);
-            _client = new TelegramBotClient(config.TelegramToken, proxy);
+            _client = new TelegramBotClient(config.TelegramToken);
         }
 
         public void Notify(NotifyMessage msg)
