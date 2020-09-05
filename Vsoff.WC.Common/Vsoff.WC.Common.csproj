@@ -45,10 +45,6 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Telegram.Bot, Version=14.10.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -65,6 +61,7 @@
     <Compile Include="..\Vsoff.WC.Core\Properties\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="IWinController.cs" />
     <Compile Include="Messengers\Messenger.cs" />
     <Compile Include="Modules\Commands\ConsoleCommandReceiver.cs" />
     <Compile Include="Modules\Commands\Converters\ICommandConverter.cs" />

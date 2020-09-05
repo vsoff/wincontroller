@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using Unity;
 using Vsoff.WC.Common;
-using Vsoff.WC.Common.Messengers;
-using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Core.Common;
 using Vsoff.WC.Core.Notifiers;
 
@@ -19,9 +9,9 @@ namespace WinController.ServiceApp
 {
     partial class WinControllerService : ServiceBase
     {
-        private INotifier _notifier;
-        private IWinController _controller;
-        private IUnityContainer _container;
+        private readonly INotifier _notifier;
+        private readonly IWinController _controller;
+        private readonly IUnityContainer _container;
 
         public WinControllerService()
         {

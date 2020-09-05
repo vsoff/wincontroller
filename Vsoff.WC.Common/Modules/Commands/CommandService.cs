@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands.Handlers;
 using Vsoff.WC.Common.Modules.Commands.Types;
-using Vsoff.WC.Common.Modules.Screenshots;
-using Vsoff.WC.Common.Modules.System;
-using Vsoff.WC.Core.Common;
 
 namespace Vsoff.WC.Common.Modules.Commands
 {

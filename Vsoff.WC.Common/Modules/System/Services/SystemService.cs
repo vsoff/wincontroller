@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Principal;
 using System.Windows.Forms;
 using System.Reflection;
@@ -40,7 +36,7 @@ namespace Vsoff.WC.Common.Modules.System.Services
         {
             return new SystemInfo
             {
-                PublicIP = GetIpAddress(),
+                PublicIp = GetIpAddress(),
                 StartTime = _applicationStartTime,
                 IsAdminUser = IsUserAdministrator(),
                 MachineName = MachineName,

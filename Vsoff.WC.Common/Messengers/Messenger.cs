@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Vsoff.WC.Core.Common;
 using Vsoff.WC.Core.Common.Workers;
 using Vsoff.WC.Core.Notifiers;
@@ -15,8 +14,8 @@ namespace Vsoff.WC.Common.Messengers
 
     public class Messenger : IMessenger
     {
-        private const int _maxMessagesHandlePerIteration = 5;
-        private readonly TimeSpan _messagesHandleInterval = TimeSpan.FromSeconds(3);
+        private const int MaxMessagesHandlePerIteration = 5;
+        private static readonly TimeSpan MessagesHandleInterval = TimeSpan.FromSeconds(3);
 
         private readonly IWorker _worker;
         private readonly INotifier _notifier;
@@ -27,8 +26,8 @@ namespace Vsoff.WC.Common.Messengers
             IWorkerController workerController)
         {
             _notifier = notifier ?? throw new ArgumentNullException(nameof(notifier));
-            _worker = workerController?.StartWorker(HandleMessages, _messagesHandleInterval, false)
-                ?? throw new ArgumentNullException(nameof(workerController));
+            _worker = workerController?.StartWorker(HandleMessages, MessagesHandleInterval, false)
+                      ?? throw new ArgumentNullException(nameof(workerController));
 
             _messagesQueue = new Queue<NotifyMessage>();
         }
@@ -36,7 +35,7 @@ namespace Vsoff.WC.Common.Messengers
         private void HandleMessages()
         {
             int i = 0;
-            while (_messagesQueue.Count != 0 || i++ >= _maxMessagesHandlePerIteration)
+            while (_messagesQueue.Count != 0 || i++ >= MaxMessagesHandlePerIteration)
             {
                 var message = _messagesQueue.Dequeue();
                 try
@@ -50,17 +49,8 @@ namespace Vsoff.WC.Common.Messengers
             }
         }
 
-        public void Send(NotifyMessage message)
-        {
-            _messagesQueue.Enqueue(message);
-        }
+        public void Send(NotifyMessage message) => _messagesQueue.Enqueue(message);
 
-        public void Send(string text)
-        {
-            _messagesQueue.Enqueue(new NotifyMessage
-            {
-                Text = text
-            });
-        }
+        public void Send(string text) => _messagesQueue.Enqueue(new NotifyMessage {Text = text});
     }
 }

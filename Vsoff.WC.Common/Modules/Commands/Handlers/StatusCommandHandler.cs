@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands.Types;
 using Vsoff.WC.Common.Modules.System;
@@ -42,7 +39,7 @@ namespace Vsoff.WC.Common.Modules.Commands.Handlers
             sb.AppendLine($"* MachineName: {info.MachineName}");
             sb.AppendLine($"* UserName: {info.UserName}");
             sb.AppendLine($"* Admin: {(info.IsAdminUser ? "Yes" : "No")}");
-            sb.AppendLine($"* IP: {info.PublicIP}");
+            sb.AppendLine($"* IP: {info.PublicIp}");
             sb.AppendLine($"* Monitor: {info.MonitorResolution}");
             sb.AppendLine($"* AppVersion: {info.AppVersion}");
             sb.AppendLine($" =========================== ");

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Unity;
+﻿using Unity;
 using Unity.Lifetime;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
@@ -9,7 +6,6 @@ using Vsoff.WC.Common.Modules.Commands.Converters;
 using Vsoff.WC.Common.Modules.Commands.Handlers;
 using Vsoff.WC.Common.Modules.Config;
 using Vsoff.WC.Common.Modules.Screenshots;
-using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Common.Modules.System.Services;
 using Vsoff.WC.Common.Notifiers;
 using Vsoff.WC.Core.Common.Workers;

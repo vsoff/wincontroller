@@ -1,24 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
-using Vsoff.WC.Common.Modules.System;
 using Vsoff.WC.Common.Modules.System.Services;
-using Vsoff.WC.Core.Common.Workers;
-using Vsoff.WC.Core.Notifiers;
 
 namespace Vsoff.WC.Common
 {
-    public interface IWinController
-    {
-        void Start();
-        void WaitExit();
-        void Stop();
-    }
-
     public class WinController : IWinController
     {
         private readonly ManualResetEvent _manualResetEvent;

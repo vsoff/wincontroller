@@ -1,12 +1,5 @@
-﻿using Microsoft.Win32;
-using Microsoft.Win32.TaskScheduler;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Win32.TaskScheduler;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Vsoff.WC.Common.Modules.System.Services
