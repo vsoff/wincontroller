@@ -1,4 +1,7 @@
-﻿using Unity;
+﻿using System;
+using System.Linq;
+using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 using Vsoff.WC.Common.Messengers;
 using Vsoff.WC.Common.Modules.Commands;
@@ -53,14 +56,31 @@ namespace Vsoff.WC.Common
 
         private static void RegisterCommandHandlers(IUnityContainer container)
         {
-            container.RegisterType<ICommandHandler, TakeScreenshotCommandHandler>(nameof(TakeScreenshotCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, UndefinedCommandHandler>(nameof(UndefinedCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, ShutdownCommandHandler>(nameof(ShutdownCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, KeyboardCommandHandler>(nameof(KeyboardCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, AutorunCommandHandler>(nameof(AutorunCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, StatusCommandHandler>(nameof(StatusCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, VolumeCommandHandler>(nameof(VolumeCommandHandler), new SingletonLifetimeManager());
-            container.RegisterType<ICommandHandler, LockCommandHandler>(nameof(LockCommandHandler), new SingletonLifetimeManager());
+            // Получаем все CommandHandler'ы с помощью рефлексии и регистрируем их.
+            var commandHandlerTypes = typeof(CommandHandler<>).Assembly.DefinedTypes
+                .Where(x => IsAssignableToGenericType(x, (typeof(CommandHandler<>))))
+                .ToArray();
+
+            foreach (var commandHandlerType in commandHandlerTypes)
+            {
+                if (commandHandlerType.IsAbstract)
+                    continue;
+
+                var type = commandHandlerType.UnderlyingSystemType;
+                var name = type.Name;
+                container.RegisterType(typeof(ICommandHandler), type, name, new SingletonLifetimeManager());
+            }
+        }
+
+        public static bool IsAssignableToGenericType(Type givenType, Type genericType)
+        {
+            if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+                return true;
+
+            if (givenType.GetInterfaces().Any(it => it.IsGenericType && it.GetGenericTypeDefinition() == genericType))
+                return true;
+
+            return givenType.BaseType != null && IsAssignableToGenericType(givenType.BaseType, genericType);
         }
     }
 }
