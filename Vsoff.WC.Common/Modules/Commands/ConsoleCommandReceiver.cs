@@ -21,10 +21,7 @@ namespace Vsoff.WC.Common.Modules.Commands
 
             _consoleReadTask = new Task(() =>
             {
-                while (true)
-                {
-                    HandleMessage();
-                }
+                while (true) HandleMessage();
             });
         }
 
@@ -40,6 +37,9 @@ namespace Vsoff.WC.Common.Modules.Commands
         private void HandleMessage()
         {
             string text = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(text))
+                return;
 
             ICommand command = _commandConverter.Convert(text);
             _commandService.InvokeCommand(command);

@@ -35,8 +35,8 @@ namespace Vsoff.WC.Common.Modules.Config
             // Компилируем action.
             var newValue = Expression.Parameter(field.Body.Type);
             var assign = Expression.Lambda<Action<AppConfig, T>>(
-            Expression.Assign(field.Body, newValue),
-            field.Parameters[0], newValue);
+                Expression.Assign(field.Body, newValue),
+                field.Parameters[0], newValue);
 
             // Изменяем параметр.
             var setter = assign.Compile();

@@ -77,17 +77,13 @@ namespace Vsoff.WC.Common.Modules.System.Services
 
             // Проверяем время последней активности.
             TimeSpan sessionDuration = _appConfigService.GetConfig().UserActivitySessionDuration;
-            if (currentTime - _cursorLastPositionTime > sessionDuration)
-            {
-                if (_isUserActive)
-                {
-                    _messenger.Send("Пользователь перестал проявлять активность.");
-                }
-
-                _isUserActive = false;
-
+            if (currentTime - _cursorLastPositionTime <= sessionDuration)
                 return;
-            }
+
+            if (_isUserActive)
+                _messenger.Send("Пользователь перестал проявлять активность.");
+
+            _isUserActive = false;
         }
     }
 }

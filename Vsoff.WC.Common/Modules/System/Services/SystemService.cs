@@ -48,7 +48,7 @@ namespace Vsoff.WC.Common.Modules.System.Services
             };
         }
 
-        public void Shutdown(TimeSpan delay) => ExecuteCmd("shutdown", $"/s /t {(int)delay.TotalSeconds}");
+        public void Shutdown(TimeSpan delay) => ExecuteCmd("shutdown", $"/s /t {(int) delay.TotalSeconds}");
 
         public void ShutdownAbort() => ExecuteCmd("shutdown", "/a");
 
@@ -56,9 +56,11 @@ namespace Vsoff.WC.Common.Modules.System.Services
 
         public Process ExecuteCmd(string commandName, string arguments)
         {
-            var psi = new ProcessStartInfo(commandName, arguments);
-            psi.CreateNoWindow = true;
-            psi.UseShellExecute = false;
+            var psi = new ProcessStartInfo(commandName, arguments)
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
             return Process.Start(psi);
         }
 
@@ -101,11 +103,15 @@ namespace Vsoff.WC.Common.Modules.System.Services
             {
                 WindowsIdentity user = WindowsIdentity.GetCurrent();
                 WindowsPrincipal principal = new WindowsPrincipal(user);
-                isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);//Is Admin
+                isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator); //Is Admin
             }
             //Is not admin
-            catch (UnauthorizedAccessException ex) { }
-            catch (Exception ex) { }
+            catch (UnauthorizedAccessException ex)
+            {
+            }
+            catch (Exception ex)
+            {
+            }
 
             return isAdmin;
         }

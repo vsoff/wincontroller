@@ -12,19 +12,19 @@ namespace Vsoff.WC.Common
 
         private readonly IUserMonitoringService _userMonitoringService;
         private readonly ISystemService _systemService;
-        private readonly ICommandReceiver _reciever;
+        private readonly ICommandReceiver _receiver;
         private readonly IMessenger _messenger;
 
         public WinController(
             IUserMonitoringService userMonitoringService,
             ISystemService systemService,
-            ICommandReceiver reciever,
+            ICommandReceiver receiver,
             IMessenger messenger)
         {
             _userMonitoringService = userMonitoringService ?? throw new ArgumentNullException(nameof(userMonitoringService));
             _systemService = systemService ?? throw new ArgumentNullException(nameof(systemService));
             _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            _reciever = reciever ?? throw new ArgumentNullException(nameof(reciever));
+            _receiver = receiver ?? throw new ArgumentNullException(nameof(receiver));
 
             _manualResetEvent = new ManualResetEvent(true);
         }
@@ -34,23 +34,20 @@ namespace Vsoff.WC.Common
             _messenger.Send($"Машина `{_systemService.MachineName}` запущена\n{DateTime.Now}");
 
             _userMonitoringService.StartMonitoring();
-            _reciever.Start();
+            _receiver.Start();
 
             _manualResetEvent.Reset();
         }
 
         public void Stop()
         {
-            _reciever.Stop();
+            _receiver.Stop();
             _userMonitoringService.StopMonitoring();
 
             _messenger.Send($"Машина `{_systemService.MachineName}` выключена\n{DateTime.Now}");
             _manualResetEvent.Set();
         }
 
-        public void WaitExit()
-        {
-            _manualResetEvent.WaitOne();
-        }
+        public void WaitExit() => _manualResetEvent.WaitOne();
     }
 }

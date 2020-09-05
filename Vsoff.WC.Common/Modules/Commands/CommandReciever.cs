@@ -23,20 +23,17 @@ namespace Vsoff.WC.Common.Modules.Commands
         private readonly IAppConfigService _appConfigService;
         private readonly ICommandConverter _commandConverter;
         private readonly ICommandService _commandService;
-        private readonly IMessenger _messenger;
 
         private readonly TelegramBotClient _client;
 
         public CommandReceiver(
             IAppConfigService appConfigService,
             ICommandConverter commandConverter,
-            ICommandService commandService,
-            IMessenger messenger)
+            ICommandService commandService)
         {
             _appConfigService = appConfigService ?? throw new ArgumentNullException(nameof(appConfigService));
             _commandConverter = commandConverter ?? throw new ArgumentNullException(nameof(commandConverter));
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
             var config = _appConfigService.GetConfig();
             _client = new TelegramBotClient(config.TelegramToken);

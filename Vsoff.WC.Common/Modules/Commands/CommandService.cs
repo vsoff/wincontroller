@@ -29,18 +29,18 @@ namespace Vsoff.WC.Common.Modules.Commands
 
         public void InvokeCommand(ICommand command)
         {
-            Type t = command.GetType();
+            Type type = command.GetType();
 
-            if (!_commandHandlersMap.ContainsKey(t))
-                throw new KeyNotFoundException($"Нет зарегистрированного обработчика команды с типом `{t}`");
+            if (!_commandHandlersMap.ContainsKey(type))
+                throw new KeyNotFoundException($"Нет зарегистрированного обработчика команды с типом `{type}`");
 
             try
             {
-                _commandHandlersMap[t].Handle(command);
+                _commandHandlersMap[type].Handle(command);
             }
             catch (Exception ex)
             {
-                _messenger.Send($"Во время выполнения команды типа {t.Name} произошло исключение");
+                _messenger.Send($"Во время выполнения команды типа {type.Name} произошло исключение");
             }
         }
     }
